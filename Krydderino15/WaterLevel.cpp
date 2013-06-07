@@ -27,7 +27,7 @@ float WaterLevel::get_averaged_water_level()
 	// find the average reading
 	averaged_water_level = (sum+1) / WL_NUMBER_OF_READINGS;
 	
-	return (int)averaged_water_level;	
+	return (int) averaged_water_level;	
 }
 
 

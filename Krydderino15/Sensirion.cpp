@@ -13,42 +13,26 @@
 
 SHT1x sht1x(SENSIRION_DATA_PIN, SENSIRION_CLOCK_PIN);
 
-	// Constructor for Sensirion library
-Sensirion::Sensirion() 
-{
-}
+Sensirion::Sensirion() {}
 
-	// returns the temperature in Celcius
-float Sensirion::read_temperature(void) 
+// @return  temperature in celsius
+float Sensirion::read_temperature(void)
 {
 	float temp_c;
 	
-		// Read values from the sensor
+    // Read values from the sensor
 	temp_c = sht1x.readTemperatureC();
-	return temp_c;
-	
-		// Print the values to the serial port
-//	Serial.print("Temperature: ");
-//	Serial.print(temp_c, DEC);
-//	Serial.print("C / ");
-//	Serial.print(humidity);
-//	Serial.println("%");
+	return temp_c; // in celcius
 }	
 
-	// returns the RH (Relative Humidity) in %
+// @return  _percentage_ of relative humidity
 float Sensirion::read_humidity(void) 
 {
 	float humidity;
 	
-		// Read values from the sensor
+    // Read values from the sensor
 	humidity = sht1x.readHumidity();
-	return humidity;
-	
-		// Print the values to the serial port
-//	Serial.print("Temperature: ");
-//	Serial.print(temp_c, DEC);
-//	Serial.print("C / ");
-//	Serial.print(humidity);
-//	Serial.println("%");
+    
+	return humidity; // in %
 }	
 

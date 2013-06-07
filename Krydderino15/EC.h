@@ -28,7 +28,7 @@ public:
 	bool sensor_stringcomplete;
     
 	EC(void);
-    int convert_ppm(int ppm);
+    // int convert_ppm(int §ppm);
 	int read_sensor(void);
 	int initialize_ec_sensor(void);
     int averaged_reading(void);

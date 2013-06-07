@@ -1,67 +1,98 @@
-
-
 #include "Arduino.h"
 #include "LocalLibrary.h"
 
-#include "MagicNumbers.h"	// Constants and magic numbers
-#include "Sensirion.h"		// Air Temperature & Relative Humidity sensor
-#include "WaterLevel.h"		// E-tape Water Level sensor
+#include "MagicNumbers.h"	// constants and magic numbers
+#include "Sensirion.h"		// air Temperature & Relative Humidity sensor
+#include "WaterLevel.h"		// e-tape Water Level sensor
 #include "LCD.h"			// LCD display
-#include "Temperature.h"	// Waterproof water temperature thermistor
+#include "Temperature.h"	// waterproof water temperature thermistor
 #include "Status.h"
 #include "Relay_12V.h"
 #include "EC.h"				// Atlas Scientific EC-sensor class
 #include "PH.h"				// Atlas Scientific pH-sensor class
 
+#include "aJson.h"          // Arduino JSON library by interactive matter
+
+
+
+
 
 // Instantiate sensor and actuator classes
 
-Status status = Status();
-Sensirion airtemp = Sensirion();
-WaterLevel waterlevel = WaterLevel();
-LCD lcd = LCD( &status );
-Temperature temp = Temperature();
-Relay_12V mister_fan = Relay_12V( MISTER_FAN_PIN );
-Relay_12V plant_fan = Relay_12V( PLANT_FAN_PIN );
-Relay_12V mister = Relay_12V( MISTER_PIN );
-Relay_12V nute_solenoid = Relay_12V( PPM_PIN );
-Relay_12V phup_solenoid = Relay_12V( PHPLUS_PIN );
-Relay_12V phdown_solenoid = Relay_12V( PHMINUS_PIN );
-EC ec = EC();
-PH ph = PH();
 
+Status      status            =   Status();
+
+// actuators
+Relay_12V   mister_fan        =   Relay_12V( MISTER_FAN_PIN );
+Relay_12V   plant_fan         =   Relay_12V( PLANT_FAN_PIN );
+Relay_12V   mister            =   Relay_12V( MISTER_PIN );
+Relay_12V   nute_solenoid     =   Relay_12V( PPM_PIN );
+Relay_12V   phup_solenoid     =   Relay_12V( PHPLUS_PIN );
+Relay_12V   phdown_solenoid   =   Relay_12V( PHMINUS_PIN );
+
+// sensors - liquid tank
+Temperature temp              =   Temperature();
+WaterLevel  waterlevel        =   WaterLevel();
+EC          ec                =   EC();
+PH          ph                =   PH();
+
+// sensors - upper chamber
+Sensirion   airtemp           =   Sensirion();
+
+// interface
+LCD         lcd               =   LCD( &status );
+
+
+// [-] debug
 int str_counter_1;
 int str_counter_3;
-
 int cycle_counter;
+
+
+
+
+void makeRecord() {
+    Serial.println( "accessed" );
+}
+
 
 //******************************************************************************
 //************************************ SETUP ***********************************
 //******************************************************************************
 void setup()
 {
-    //	Serial.begin(9600);
 	lcd.init();
-	//				1234567890123456
+	// 1234567890123456
 	lcd.clear();
 	lcd.display(0, "Calibrating\0  ");
 	lcd.display(1, "sensors...\0   ");
-//	waterlevel.init();
 	lcd.clear();
-	lcd.display(0, "Sensors okay.\0");
+	
+    
+    
+    // boots up sensors
+    // waterlevel.init();
 	ec.initialize_ec_sensor();
 	ph.initialize_ph_sensor();
+    
+    lcd.display(0, "Sensors okay.\0");
+    
+    //
 	cycle_counter = 0;
 	
-    //	Serial.begin(38400); // hardware serial port
-	
-    Serial.begin(9600); // Open serial connection to report values to host
+    
+    // Serial.begin(38400); // hardware serial port
+    
+    Serial.begin(9600); // opens serial connection to the host
+    Serial.println( "OK" );
+    
 }
 
 //******************************************************************************
 //************************************ LOOP ************************************
 //******************************************************************************
 void loop() {
+    
 	cycle_counter++;
     
     // **** Fetch & Display temp/RH sensor ****
@@ -75,28 +106,31 @@ void loop() {
     }
 
     
+    
     // **** Fetch & Display water level sensor ****
 	
-//	status.water_level_instant = waterlevel.read_sensor();
-//    //	status.water_level_instant =
-//	waterlevel.get_averaged_water_level();
-//	status.water_level_in_inches = waterlevel.water_level_in_inches();
-//	status.water_level = waterlevel.humanized_level();
+    //	status.water_level_instant = waterlevel.read_sensor();
+    //	status.water_level_instant =
+    //	waterlevel.get_averaged_water_level();
+    //	status.water_level_in_inches = waterlevel.water_level_in_inches();
+    //	status.water_level = waterlevel.humanized_level();
 
-    // hack while waiting for new water level sensor:
+    // [-][/] hack while waiting for new water level sensor:
     status.water_level = WL_NORMAL;
 
-//	status.water_temperature = temp.temperature_in_celcius();
-//	lcd.print_water_level();
-//	delay(1000);
-//	lcd.print_water_level_instant();
-//	delay(2500);
+    //	status.water_temperature = temp.temperature_in_celcius();
+    //	lcd.print_water_level();
+    //	delay(1000);
+    //	lcd.print_water_level_instant();
+    //	delay(2500);
+    
     
     
     // **** Dumping Cycle Counter on LCD ****
-	
 	lcd.display_number(cycle_counter, 0);
 	
+    
+    /*
     // **** Run 24V mister fan relay for some time every n cycles ****
 	if ((cycle_counter % (3)) == 0)
 	{
@@ -127,9 +161,11 @@ void loop() {
 		lcd.display(1,"AeroMister   OFF\0");
         mister.off();
 	} else mister.off();
-    	
-    // **** Run Top Fan If Too Hot ****
+    
 	
+    
+    // **** Run Top Fan If Too Hot ****
+    
 	if (status.plant_temperature >= 26)
 	{
 		lcd.clear(); //1234567890123456
@@ -138,6 +174,8 @@ void loop() {
 		plant_fan.on();
 	}
 	
+    
+    
     // **** Run Top Fan If Too Humid ****
 	
 	if (status.plant_humidity >= 65)
@@ -147,6 +185,8 @@ void loop() {
 		lcd.display(1,"Starting fan!\0");
 		plant_fan.on();
 	}
+    
+    
     
     // **** Stop Top Fan If Nice ****
     
@@ -159,6 +199,8 @@ void loop() {
 	}
 	delay(2000);
 	
+    
+    
     // **** Process pH sensor ****
 	
     lcd.clear(); //1234567890123456
@@ -167,6 +209,8 @@ void loop() {
 	ph.averaged_reading();
 	status.water_ph = ph.last_average;
 
+    
+    
     // **** Process EC sensor ****
 
     lcd.clear(); //1234567890123456
@@ -179,15 +223,71 @@ void loop() {
     
     delay(2000);
 	
+    
+    
     // **** Based on EC & pH, release fluids ****
-	
+	*/
+    
+    
+    
     // **** Test solenoids ****
 	
-//    nute_solenoid.on(400);
-//    delay(1000);
-//    phup_solenoid.on(400);
-//    delay(1000);
-//    phdown_solenoid.on(400);
-//    delay(1000);
+    nute_solenoid.on(750);
+    delay(500);
+    phup_solenoid.on(750);
+    delay(500);
+    phdown_solenoid.on(750);
+    delay(500);
+    
+    // Test fans
+    plant_fan.on();
+    delay(5000);
+    plant_fan.off();
+    
+    
+    
+    // **** Report status to host in JSON format ****
+    
+    aJsonStream serial_stream( &Serial );
+    
+    // contains the query status and
+    aJsonObject *root;
+
+    // stores readings from different targets
+
+    
+    
+    
+    aJsonObject *record;
+    
+    // 
+    root = aJson.createObject();
+        aJson.addItemToObject( root, "status", aJson.createItem( "success" ) ); // [+]
+        aJson.addItemToObject( root, "checksum", aJson.createItem( "checksum" ) );
+        // aJson.addNumberToObject( root, "milliseconds", (int) millis() );
+    
+    // template f
+    record = aJson.createObject();
+        aJson.addStringToObject( record, "type", "ph" );
+        aJson.addNumberToObject( record, "value", status.ph_level );
+        aJson.addStringToObject( record, "unit", "inch" );
+
+    
+    aJsonObject *readings = aJson.createArray();
+    
+    aJson.addItemToArray( readings, record );
+    
+    aJson.addItemToObject( root, "readings", readings );
+
+    
+    aJson.print( root, &serial_stream );
+    Serial.println(); /* Add newline. */
+    
+    makeRecord();
+    
+    delay(500);
+    
     
 }
+
+

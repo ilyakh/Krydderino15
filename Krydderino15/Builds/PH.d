@@ -9,4 +9,4 @@ Builds/PH.o: PH.cpp PH.h \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/Arduino/Printable.h \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/Arduino/new.h \
   /Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/variants/mega/pins_arduino.h \
-  MagicNumbers.h
+  MagicNumbers.h Temperature.h Sensirion.h

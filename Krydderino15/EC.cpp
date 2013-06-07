@@ -50,22 +50,20 @@ int EC::read_sensor(void)
     tmp_sensorstring[5] = '\0';
 	ppm = atof(tmp_sensorstring);
     
-    Serial.print("Sensorstring: ");
-    Serial.println( sensorstring );
-    Serial.print("float ppm:");
-    Serial.println( ppm );
+    // Serial.print("Sensorstring: ");
+    // Serial.println( sensorstring );
+    // Serial.print("float ppm:");
+    // Serial.println( ppm );
     
-	ppm = convert_ppm( ppm );
-    
-    Serial.print( "Converted PPM: ");
-    Serial.println( ppm );
+	// ppm = convert_ppm( ppm );
     
     return ppm;
 }
 
+/*
 int EC::convert_ppm( int ppm )
 {
-    /*
+ 
     char *token[5];
     int i = 0;
     token[0]= strtok( sensorstring, "," );
@@ -83,10 +81,12 @@ int EC::convert_ppm( int ppm )
     int ppmInt;
     ppmInt = atoi(token[1]);
 	
-    return ppmInt; */
+    return ppmInt; 
     
     return ppm;
 }
+*/
+
 
 int EC::averaged_reading(void)
 {
@@ -99,8 +99,6 @@ int EC::averaged_reading(void)
 	{
 		total_samples[i] = read_sensor();
 	}
-
-    Serial.println( ec_sum );
     
 	for (i=0; i < EC_NUM_OF_SAMPLES; i++)
 	{
@@ -113,10 +111,10 @@ int EC::averaged_reading(void)
     
 	last_average = rounded_average;
     
-    Serial.print("Rounded average: ");
-    Serial.println(last_average);
-    Serial.print("As (int): ");
-    Serial.println((int)last_average);
+    // Serial.print("Rounded average: ");
+    // Serial.println(last_average);
+    // Serial.print("As (int): ");
+    // Serial.println((int)last_average);
     
 	return rounded_average;
 }

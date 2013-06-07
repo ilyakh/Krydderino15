@@ -18,7 +18,6 @@
 		59E00451174BC9E1006112D2 /* WaterLevel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E00449174BC9E1006112D2 /* WaterLevel.cpp */; };
 		59E00454174BCD31006112D2 /* SHT1x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 59E00452174BCD30006112D2 /* SHT1x.cpp */; };
 		59E023D9174BC4DB006112D2 /* LocalLibrary.h in Sources */ = {isa = PBXBuildFile; fileRef = 59E003D9174BC4DB006112D2 /* LocalLibrary.h */; };
-		59E02417174BC4DC006112D2 /* Krydderino15.ino in Sources */ = {isa = PBXBuildFile; fileRef = 59E00417174BC4DC006112D2 /* Krydderino15.ino */; };
 		AAAA2AAAAAAAAAAA00000005 /* Arduino.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAA00000005 /* Arduino.h */; };
 		AAAA2AAAAAAAAAAA00000006 /* binary.h in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAA00000006 /* binary.h */; };
 		AAAA2AAAAAAAAAAA00000007 /* CDC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAAAAAAAAAAAAAAA00000007 /* CDC.cpp */; };
@@ -185,7 +184,6 @@
 		59E00413174BC4DC006112D2 /* dist.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = dist.sh; path = Utilities/dist.sh; sourceTree = "<group>"; };
 		59E00414174BC4DC006112D2 /* doxyfile */ = {isa = PBXFileReference; lastKnownFileType = text; name = doxyfile; path = Utilities/doxyfile; sourceTree = "<group>"; };
 		59E00416174BC4DC006112D2 /* TemplateIcon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; name = TemplateIcon.icns; path = Utilities/TemplateIcon.icns; sourceTree = "<group>"; };
-		59E00417174BC4DC006112D2 /* Krydderino15.ino */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; path = Krydderino15.ino; sourceTree = "<group>"; };
 		59E0043B174BC9E1006112D2 /* EC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EC.cpp; sourceTree = "<group>"; };
 		59E0043C174BC9E1006112D2 /* EC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EC.h; sourceTree = "<group>"; };
 		59E0043D174BC9E1006112D2 /* LCD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LCD.cpp; sourceTree = "<group>"; };
@@ -205,6 +203,9 @@
 		59E00452174BCD30006112D2 /* SHT1x.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SHT1x.cpp; sourceTree = "<group>"; };
 		59E00453174BCD30006112D2 /* SHT1x.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SHT1x.h; sourceTree = "<group>"; };
 		A7CF4852175AEFE900C33519 /* todo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = todo.txt; sourceTree = "<group>"; };
+		A7CF4876175C0FBD00C33519 /* stringbuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stringbuffer.c; sourceTree = "<group>"; };
+		A7CF4877175C0FBD00C33519 /* stringbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stringbuffer.h; sourceTree = "<group>"; };
+		A7CF4878175C0FF000C33519 /* Krydderino15.ino */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; path = Krydderino15.ino; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAA00000005 /* Arduino.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Arduino.h; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAA00000006 /* binary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = binary.h; sourceTree = "<group>"; };
 		AAAAAAAAAAAAAAAA00000007 /* CDC.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CDC.cpp; sourceTree = "<group>"; };
@@ -332,6 +333,7 @@
 		59E003D4174BC4DB006112D2 /* Krydderino15 */ = {
 			isa = PBXGroup;
 			children = (
+				A7CF4875175C0FBD00C33519 /* utility */,
 				59E00452174BCD30006112D2 /* SHT1x.cpp */,
 				59E00453174BCD30006112D2 /* SHT1x.h */,
 				59E0043B174BC9E1006112D2 /* EC.cpp */,
@@ -353,9 +355,9 @@
 				59E003D5174BC4DB006112D2 /* main.cpp */,
 				59E003D7174BC4DB006112D2 /* LocalLibrary.cpp */,
 				59E003D9174BC4DB006112D2 /* LocalLibrary.h */,
+				A7CF4878175C0FF000C33519 /* Krydderino15.ino */,
 				59E003DA174BC4DB006112D2 /* Makefile */,
 				59E00406174BC4DC006112D2 /* ReadMe.txt */,
-				59E00417174BC4DC006112D2 /* Krydderino15.ino */,
 				59E003DC174BC4DB006112D2 /* Sketchbook */,
 				AAAAAAAAAAAAAAAA00000000 /* Resources */,
 				59E003DE174BC4DB006112D2 /* Configurations */,
@@ -452,6 +454,16 @@
 				59E00416174BC4DC006112D2 /* TemplateIcon.icns */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		A7CF4875175C0FBD00C33519 /* utility */ = {
+			isa = PBXGroup;
+			children = (
+				A7CF4876175C0FBD00C33519 /* stringbuffer.c */,
+				A7CF4877175C0FBD00C33519 /* stringbuffer.h */,
+			);
+			name = utility;
+			path = ../utility;
 			sourceTree = "<group>";
 		};
 		AAAAAAAAAAAAAAAA00000000 /* Resources */ = {
@@ -941,7 +953,6 @@
 				59E003D6174BC4DB006112D2 /* main.cpp in Sources */,
 				59E003D8174BC4DB006112D2 /* LocalLibrary.cpp in Sources */,
 				59E023D9174BC4DB006112D2 /* LocalLibrary.h in Sources */,
-				59E02417174BC4DC006112D2 /* Krydderino15.ino in Sources */,
 				AAAA2AAAAAAAAAAA00000005 /* Arduino.h in Sources */,
 				AAAA2AAAAAAAAAAA00000006 /* binary.h in Sources */,
 				AAAA2AAAAAAAAAAA00000007 /* CDC.cpp in Sources */,

@@ -19,15 +19,15 @@
 class Status 
 {
 public:
-	float plant_temperature;
-	float plant_humidity;
-	float ph_level;
-	int water_ec;
-	int water_ph;
-	float water_level_instant;
-	WL_STATUS water_level;
-	float water_temperature;
-	int water_level_in_inches;
+	float     plant_temperature;
+	float     plant_humidity;
+	float     ph_level;
+	int       water_ec;
+	int       water_ph;
+	float     water_level_instant;
+	float     water_temperature;
+	int       water_level_in_inches;
+    WL_STATUS water_level;
 private:
 	
 };
